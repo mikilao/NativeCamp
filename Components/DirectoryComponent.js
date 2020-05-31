@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { FlatList } from 'react-native';
 import {CAMPSITES} from '../Shared/campsites';
 import { ListItem } from 'react-native-elements';
-import { render } from 'react-dom';
+
 
 class Directory extends Component {
     constructor(props){
