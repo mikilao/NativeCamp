@@ -30,6 +30,7 @@ const ContactNavigator = createStackNavigator(
     { Home: {screen: Home},
      Directory: {screen: Directory},
      About: {screen: About},
+     CampsiteInfo:{screen: CampsiteInfo}
  },
   {//Header
      initialRouteName: 'Contact',
@@ -48,6 +49,7 @@ const AboutNavigator = createStackNavigator(
     { Home: {screen: Home},
      Directory: {screen: Directory},
      Contact: {screen: Contact},
+     CampsiteInfo:{screen: CampsiteInfo}
  },
   {//Header
      initialRouteName: 'Directory',

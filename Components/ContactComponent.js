@@ -45,7 +45,7 @@ export default class Contact extends Component {
                            <Text> Email: campsites@nucamp.com
                 </Text>
             </Card>
-            <ContactNavigator />
+        
         </ScrollView>
         )
     }
