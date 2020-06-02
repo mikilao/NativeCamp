@@ -46,13 +46,10 @@ const ContactNavigator = createStackNavigator(
  }
  );
 const AboutNavigator = createStackNavigator(
-    { Home: {screen: Home},
-     Directory: {screen: Directory},
-     Contact: {screen: Contact},
-     CampsiteInfo:{screen: CampsiteInfo}
+    { About: {screen: About}
  },
   {//Header
-     initialRouteName: 'Directory',
+   initialRouteName: 'About',
      navigationOptions: {
          headerStyle:{
              backgroundColor: '#5637DD'
@@ -86,7 +83,7 @@ const MainNavigator = createDrawerNavigator(
         Home: { screen: HomeNavigator },//changes the screen from a collapsable menu 
         Directory: { screen: DirectoryNavigator },
         About: {screen: AboutNavigator},
-        ContactUS: {screen: ContactNavigator}
+        Contact: {screen: ContactNavigator}
     },
     {
         drawerBackgroundColor: '#CEC8FF'

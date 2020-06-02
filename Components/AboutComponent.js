@@ -1,32 +1,11 @@
-import {ScrollView, Text, ListItem, FlatList} from 'react-native';
+import {ScrollView, Text,  FlatList} from 'react-native';
+import {ListItem} from 'react-native-elements';
 import React, { Component } from 'react';
 import {Card} from 'react-native-elements';
 import {PARTNERS} from '../Shared/partners';
-import { createStackNavigator } from 'react-navigation';
-import Home from './HomeComponent'
-import Contact from './ContactComponent';
-import Directory from './DirectoryComponent'
 
-const AboutNavigator = createStackNavigator(
-    { Home: {screen: Home},
-     Directory: {screen: Directory},
-     Contact: {screen: Contact},
- },
-  {//Header
-     initialRouteName: 'Directory',
-     navigationOptions: {
-         headerStyle:{
-             backgroundColor: '#563700'
-         },
-         headerTintColor: '#fff',
-         headerTitleStyle:{
-             color: '#fff'
-         }
-     }
- }
- );
-class Mission extends Component{
-    render(){
+function Mission (){
+  
         return(
               <Card title='Mission'
             wrapperStyle={{margin: 20}}>
@@ -36,7 +15,7 @@ class Mission extends Component{
             </Card>
         )
     }
-}
+
 
 class About extends Component {
     constructor(props){
