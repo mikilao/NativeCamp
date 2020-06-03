@@ -1,0 +1,1 @@
+export const baseUrl='http://192.168.1.13/' //found by using ipconfig in terminal
