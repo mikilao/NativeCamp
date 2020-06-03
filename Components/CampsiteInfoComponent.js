@@ -65,7 +65,7 @@ markFavorite() {
         title: 'Campsite Information'
     }
         render(){
-            const campsiteId = this.props.navigation.getParam('campsiteId');
+            const campsiteId = this.prop.navigation.getParam('campsiteId');//???
             const comments = this.state.comments.filter(comment => comment.campsiteId === campsiteId);
             const campsite = this.state.campsites.filter(campsite => campsite.id === campsiteId)[0];
     return (
