@@ -72,7 +72,7 @@ markFavorite() {
         render(){
             const campsiteId = this.props.navigation.getParam('campsiteId');//???
             const comments = this.props.comments.comments.filter(comment => comment.campsiteId === campsiteId);
-            const campsite = this.state.campsites.campsites.filter(campsite => campsite.id === campsiteId)[0];
+            const campsite = this.props.campsites.campsites.filter(campsite => campsite.id === campsiteId)[0];
     return (
         <ScrollView>
        <RenderCampsite campsite={campsite}

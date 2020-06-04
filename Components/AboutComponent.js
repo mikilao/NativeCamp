@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {Card} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {baseUrl} from '../Shared/baseUrl';
+import Loading from './LoadingComponent';
 
 const mapStateToProps = state =>{
     return{
@@ -31,6 +32,7 @@ class About extends Component {
             partner: PARTNERS
         }
     }*/
+    
 
     static navigationOptions ={// sets the titles during navigation
         title: 'About'
@@ -44,15 +46,38 @@ class About extends Component {
                 <ListItem
                     title={item.name}
                     subtitle={item.description}
-                   image= {{uri:baseUrl + item.image}}
+                   leftAvatar= {{source:{uri:baseUrl + item.image}}}
                 />
             );
         };
+        if(this.props.partners.isLoading){
+            return(
+                <ScrollView>
+                    <Mission />
+                    <Card title="Community Partners">
+                       <Loading />
+                                </Card>
+        
+                </ScrollView>
+                )
+        }
+        if(this.props.partners.errMess){
+            return(
+               
+                    <ScrollView>
+                        <Mission />
+                        <Card title="Community Partners">
+                            <Text>{this.props.partners.errMess}</Text>
+                                    </Card>
+            
+                    </ScrollView>
+                    )
+              }
     return(
         <ScrollView>
             <Mission />
             <Card title="Community Partners">
-                <FlatList data={this.props.partners.partner}
+                <FlatList data={this.props.partners.partners}
                 keyExtractor={item => item.id.toString()}
                     renderItem={renderPartner} />
                         </Card>

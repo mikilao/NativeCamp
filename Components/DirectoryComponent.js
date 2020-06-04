@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { FlatList } from 'react-native';
-
+import { FlatList, View } from 'react-native';
+import Loading from './LoadingComponent';
 import { Tile } from 'react-native-elements';
 import {connect} from 'react-redux';
 import {baseUrl} from '../Shared/baseUrl';
@@ -27,12 +27,22 @@ render() {
                 caption={item.description}
                 featured
                 onPress={() => navigate('CampsiteInfo', {campsiteId: item.id})} //directing where to navigate 
-                image= {{uri:baseUrl + item.image}}
+                imageSrc= {{uri:baseUrl + item.image}}
                 //leftAvatar={{ source: require('./images/react-lake.jpg')}}
             />
         );
     };
 
+        if(this.props.campsites,isLoading){
+            return <Loading />;
+            }
+        if(this.props.campsites.errMess){
+            return(
+                <View>
+                    <Text>{this.props.campsites.errMess}</Text>
+                </View>
+            )
+        }
     return (
         <FlatList 
             data={this.props.campsites.campsites}//reads everything from campsites file
