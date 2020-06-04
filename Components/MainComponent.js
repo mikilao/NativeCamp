@@ -8,7 +8,15 @@ import About from './AboutComponent';
 import Contact from './ContactComponent';
 import SafeAreaView from 'react-native-safe-area-view';
 import { Icon} from 'react-native-elements';
+import {connect} from 'react-redux';
+import {fetchCampsites, fetchComments, fetchPromotions, fetchPartners} from '../Redux/ActionCreator'
 
+const mapDispatchToProps ={//redux
+    fetchCampsites,
+    fetchComments,
+    fetchPartners,
+    fetchPromotions
+}
 
 const DirectoryNavigator = createStackNavigator(
     {//chose which components are available 
@@ -193,7 +201,13 @@ class Main extends Component {
     // onCampsiteSelect(campsiteId) {// how to handle when a campsite is clicked
     //  this.setState({selectedCampsite: campsiteId})//updates the states
     //  }
+componentDidMount(){//call the action creators
+    this.props.fetchPromotions(),
+    this.props.fetchCampsites(),
+    this.props.fetchPartners(),
+    this.props.fetchComments()
 
+}
     render() {
         return (
             <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight }}>
@@ -232,4 +246,4 @@ const styles = StyleSheet.create({
         fontSize: 24
     }
 });
-export default Main;
+export default connect(null, mapDispatchToProps)(Main)

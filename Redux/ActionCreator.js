@@ -1,5 +1,5 @@
 import * as ActionTypes from './ActionTypes';
-import { baseUrl } from '../shared/baseUrl';
+import { baseUrl } from '../Shared/baseUrl';
 
 export const fetchComments = () => dispatch => { // this function stops the dispatch from loading the reducer
     return fetch(baseUrl + 'comments')

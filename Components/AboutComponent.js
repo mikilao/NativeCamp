@@ -2,12 +2,19 @@ import {ScrollView, Text,  FlatList} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import React, { Component } from 'react';
 import {Card} from 'react-native-elements';
-import {PARTNERS} from '../Shared/partners';
+import {connect} from 'react-redux';
+import {baseUrl} from '../Shared/baseUrl';
+
+const mapStateToProps = state =>{
+    return{
+        partners: state.partners
+    }
+}
 
 function Mission (){
   
         return(
-              <Card title='Mission'
+              <Card title='Our Mission'
             wrapperStyle={{margin: 20}}>
                 <Text >
                 We present a curated database of the best campsites in the vast woods and backcountry of the World Wide Web Wilderness. We increase access to adventure for the public while promoting safe and respectful use of resources. The expert wilderness trekkers on our staff personally verify each campsite to make sure that they are up to our standards. We also present a platform for campers to share reviews on campsites they have visited with each other.
@@ -18,12 +25,12 @@ function Mission (){
 
 
 class About extends Component {
-    constructor(props){
+    /*constructor(props){
         super(props);
         this.state={
             partner: PARTNERS
         }
-    }
+    }*/
 
     static navigationOptions ={// sets the titles during navigation
         title: 'About'
@@ -37,7 +44,7 @@ class About extends Component {
                 <ListItem
                     title={item.name}
                     subtitle={item.description}
-                    leftAvatar={{ source: require('./images/bootstrap-logo.png')}}
+                   image= {{uri:baseUrl + item.image}}
                 />
             );
         };
@@ -45,7 +52,7 @@ class About extends Component {
         <ScrollView>
             <Mission />
             <Card title="Community Partners">
-                <FlatList data={this.state.partner}
+                <FlatList data={this.props.partners.partner}
                 keyExtractor={item => item.id.toString()}
                     renderItem={renderPartner} />
                         </Card>
@@ -54,4 +61,4 @@ class About extends Component {
         )
     }
 }
-export default About;
+export default connect(mapStateToProps)(About);
