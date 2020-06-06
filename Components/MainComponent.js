@@ -247,10 +247,10 @@ class Main extends Component {
     //  this.setState({selectedCampsite: campsiteId})//updates the states
     //  }
     componentDidMount() {//call the action creators
-        this.props.fetchPromotions(),
-            this.props.fetchCampsites(),
-            this.props.fetchPartners(),
-            this.props.fetchComments()
+        this.props.fetchPromotions();
+            this.props.fetchCampsites();
+            this.props.fetchPartners();
+            this.props.fetchComments();
 
     }
     render() {
