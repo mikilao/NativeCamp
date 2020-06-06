@@ -4,7 +4,8 @@ import { Card, Icon, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../Shared/baseUrl';
 import { Rating } from 'react-native-elements';
-import { postFavorite } from '../Redux/ActionCreator';
+import { postFavorite, postComment } from '../Redux/ActionCreator';
+
 
 
 const mapStateToProps = state => {
@@ -15,7 +16,8 @@ const mapStateToProps = state => {
     }
 }
 const mapDispatchToProps = {
-    postFavorite: campsiteId => (postFavorite(campsiteId))
+    postFavorite: campsiteId => (postFavorite(campsiteId)),
+    postComment: campsiteID =>(postComment( campsiteId, rating, author, text))
 };
 
 function RenderCampsite( props ) {
@@ -61,7 +63,7 @@ function RenderComments({ comments }) {
                 <Rating
                 showRating={5}
                 startingValue= {5}
-                readonly
+                
                  style={{ paddingVertical:'5%', alignItems:"flex-start" }}
                  imageSize ={10}
                  /> 
