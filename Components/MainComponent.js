@@ -5,6 +5,7 @@ import {View, Platform, StyleSheet, Text, ScrollView, Image }from 'react-native'
 import {createDrawerNavigator, createStackNavigator, DrawerItems } from 'react-navigation'
 import Home from './HomeComponent';
 import About from './AboutComponent';
+import Reservation from './ReservationComponent';
 import Contact from './ContactComponent';
 import SafeAreaView from 'react-native-safe-area-view';
 import { Icon} from 'react-native-elements';
@@ -53,6 +54,32 @@ const ContactNavigator = createStackNavigator(
          About: {screen: About},
          CampsiteInfo:{screen: CampsiteInfo}*/
         Contact: { screen: Contact }
+    },
+    {//Header
+       
+        navigationOptions: ({navigation}) =>({
+            headerStyle:{
+                backgroundColor: '#5637DD'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle:{
+                color: '#fff'
+               },
+               headerLeft:<Icon
+               name='address-card'
+               type ='font-awesome'
+               iconStyle={StyleSheet.stackIcon}
+               onPress={() => navigation.toggleDrawer()} />
+            })
+    }
+);
+const ReservationNavigator = createStackNavigator(
+    {
+        Home: { screen: Home },
+        /* Directory: {screen: Directory},
+         About: {screen: About},
+         CampsiteInfo:{screen: CampsiteInfo}*/
+       Reservation: { screen: Reservation }
     },
     {//Header
        
@@ -187,7 +214,20 @@ const MainNavigator = createDrawerNavigator(
                         color={tintColor}
                     />
                 )
-            } }
+            } },
+           Reservation: {  screen: ReservationNavigator,
+                navigationOptions: {
+                    drawerLabel: "Reserve Campsite",
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='tree'
+                            type='font-awesome'
+                            size={24}
+                            color={tintColor}
+                        />
+                    )
+                }
+             },
     },
     {
         drawerBackgroundColor: '#CEC8FF',

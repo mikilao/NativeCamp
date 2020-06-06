@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, Text} from 'react-native';
 import Loading from './LoadingComponent';
 import { Tile } from 'react-native-elements';
 import {connect} from 'react-redux';
@@ -33,7 +33,7 @@ render() {
         );
     };
 
-        if(this.props.campsites,isLoading){
+        if(this.props.campsites.isLoading){
             return <Loading />;
             }
         if(this.props.campsites.errMess){

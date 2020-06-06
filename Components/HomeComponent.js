@@ -13,9 +13,9 @@ const mapStateToProps = state =>{
     }
 }
 
-function RenderItem({props}) {
+function RenderItem(props) {
     const {item}= props;
-    if(props.isloading){
+    if(props.isLoading){
         return <Loading />
     }
     if(props.errMess){
@@ -61,13 +61,14 @@ class Home extends Component {
                     item={this.props.promotions.promotions.filter(promotion => promotion.featured)[0]}
                     isLoading={this.props.promotions.isLoading}
                     errMess={this.props.promotions.errMess} 
-                />
+                />                
                 <RenderItem
                     item={this.props.partners.partners.filter(partner => partner.featured)[0]}
                     isLoading={this.props.partners.isLoading}
                     errMess={this.props.partners.errMess} 
                 /></ScrollView>
-        );
+               
+                 );
     }
 }
 
