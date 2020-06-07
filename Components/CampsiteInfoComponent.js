@@ -17,7 +17,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = {
     postFavorite: campsiteId => (postFavorite(campsiteId)),
-    postComment: campsiteID =>(postComment( campsiteId, rating, author, text))
+    postComment: (campsiteId, rating, author, comment) => (postComment(campsiteId, rating, author, comment))
+    
 };
 
 function RenderCampsite( props ) {
@@ -61,11 +62,11 @@ function RenderComments({ comments }) {
             <View style={{ margin: 10 }}>
                 <Text style={{ fontSize: 14 }} > {item.text}</Text>
                 <Rating
-                showRating={5}
+                showRating= {5}
                 startingValue= {5}
                 
                  style={{ paddingVertical:'5%', alignItems:"flex-start" }}
-                 imageSize ={10}
+                 imageSize ={30}
                  /> 
                 <Text style={{ fontSize: 12 }}>{`-- ${item.author}, ${item.date}`}</Text>
             </View>
@@ -142,8 +143,8 @@ class CampsiteInfo extends Component {
                     <View style={styles.modal}>
                         <Rating                          
                          startingValue= {this.state.rating}
-                        imageSize={20}
-                         readonly
+                        imageSize={40}
+                         text
                          style={{paddingVertical: 10}}
                          onFinishRating={(rating)=>this.setState({rating: rating})} 
                          />
