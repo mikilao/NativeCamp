@@ -7,8 +7,11 @@ export const favorites = (state = [], action) => {
                 return state
             }
             return state.concat(action.payload)
-
-        default:
+        case ActionTypes.DELETE_FAVORITE:
+           // returns a new list of filter campsitesthat favorited
+                return state.filter(favorite => favorite !==action.payload)
+            
+    default:
             return state
     }
 }
