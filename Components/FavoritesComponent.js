@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList, View, Text, Alert } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Loading } from './LoadingComponent';
@@ -13,6 +13,8 @@ const mapStateToProps = state => {
         favorites: state.favorites
     }
 }
+const mapDispatchToProps = {    deleteFavorite: campsiteId => (deleteFavorite(campsiteId))};
+
 class Favorites extends Component {
     static navigationOptions = {
         title: "My Favorites"
@@ -23,7 +25,23 @@ class Favorites extends Component {
             const rightButton = [{
                 text: 'delete',
                 type: 'delete',
-                onPress: () => this.props.deleteFavorite(item.id)
+                onPress: () =>{
+                    Alert.alert(
+                        'Delete Favorite?',
+                        'Are you sure you want to delete' + item.name +'?',
+                        [
+                            {
+                                text: 'Cancel',
+                                onPress: () => console.log(item.name + 'Not Deleted'),
+                            },
+                            {
+                                text: 'OK',
+                                onPress: () => this.props.deleteFavorite(item.id)
+                            }
+                        ],
+                        {cancelable: false}
+                    )
+                } 
             }];
             return (
                 <Swipeout right={rightButton} autoClose={true}>
