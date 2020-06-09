@@ -7,6 +7,7 @@ import Home from './HomeComponent';
 import About from './AboutComponent';
 import Reservation from './ReservationComponent';
 import Contact from './ContactComponent';
+import Favorites from './FavoritesComponent';
 import SafeAreaView from 'react-native-safe-area-view';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -47,12 +48,30 @@ const DirectoryNavigator = createStackNavigator(
         }
     }
 );
+const FavoritesNavigator = createStackNavigator(
+    {
+        Favorites: { screen: Favorites }
+    },
+    {
+        navigationOptions: ({ navigation }) => ({
+            headerStyle: {
+                backgroundColor: '#5637DD'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            },
+            headerLeft: <Icon
+                name='heart'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
+    })
 const ContactNavigator = createStackNavigator(
     {
         Home: { screen: Home },
-        /* Directory: {screen: Directory},
-         About: {screen: About},
-         CampsiteInfo:{screen: CampsiteInfo}*/
         Contact: { screen: Contact }
     },
     {//Header
@@ -104,7 +123,7 @@ const AboutNavigator = createStackNavigator(
         About: { screen: About }
     },
     {//Header
-
+        drawerLabel: 'About',
         navigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#5637DD'
@@ -181,9 +200,24 @@ const MainNavigator = createDrawerNavigator(
         Directory: {
             screen: DirectoryNavigator,
             navigationOptions: {
+                drawerLabel: "Directory",
                 drawerIcon: ({ tintColor }) => (
                     <Icon
                         name='list'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+        },
+        Favorites: {
+            screen: FavoritesNavigator,
+            navigationOptions: {
+                drawerLabel: 'My Favorites',
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='heart'
                         type='font-awesome'
                         size={24}
                         color={tintColor}
@@ -234,6 +268,7 @@ const MainNavigator = createDrawerNavigator(
             }
         },
     },
+
     {
         drawerBackgroundColor: '#CEC8FF',
         contentComponent: CustomDrawerContentComponent //render the new drawer content
@@ -248,9 +283,9 @@ class Main extends Component {
     //  }
     componentDidMount() {//call the action creators
         this.props.fetchPromotions();
-            this.props.fetchCampsites();
-            this.props.fetchPartners();
-            this.props.fetchComments();
+        this.props.fetchCampsites();
+        this.props.fetchPartners();
+        this.props.fetchComments();
 
     }
     render() {
