@@ -24,10 +24,15 @@ const mapDispatchToProps = {
 
 function RenderCampsite( props ) {
     const { campsite } = props;
+    const view= React.createRef()//1st part of gestures 2
     const recognizeDrag = ({dx}) => (dx <-200) ? true : false; //pt1 of gestures determine direction with neg # = true or false
     
-    const panRespond = PanResponder.create({//pt 2 of gestures
+    const panRespond = PanResponder.create({//pt 2 of gestures 1
         onStartShouldSetPanResponder:()=> true, //activate the pan responder to respond to gestures
+        onPanResponderGrant:()=>{
+            view.current.rubberBand(1000)//pt 3. set the exact animation and time
+            .then(endState => console.log(endState.finished ? 'finished' : 'canceled'))//log if a gesture is finished
+        },
         onPanResponderEnd: (e, gestureState)=>{
             console.log('pan responder end', gestureState); 
              if(recognizeDrag(gestureState)){
@@ -42,7 +47,7 @@ function RenderCampsite( props ) {
                      },
                      {
                          text: 'OK',
-                         onPress: () => props.favorite ? console.log('Alreadt set as favorite') :props.markFavorite()
+                         onPress: () => props.favorite ? console.log('Already set as favorite') :props.markFavorite()
                      } 
                      ], {cancelable:false}
            
@@ -56,6 +61,7 @@ return true;
             animation='fadeInDown' 
             duration={2000} 
             delay={1000}
+            ref={view}//2nd part of gestures 2, declare the ref
             {...panRespond.panHandlers}//last step to connect the gestures
              >
             <Card
