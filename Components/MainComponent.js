@@ -71,11 +71,11 @@ const FavoritesNavigator = createStackNavigator(
     })
 const ContactNavigator = createStackNavigator(
     {
-        Home: { screen: Home },
+      // Home: { screen: Home },
         Contact: { screen: Contact }
     },
     {//Header
-
+        drawerLabel: "Contact",
         navigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#5637DD'

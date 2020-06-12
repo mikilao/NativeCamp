@@ -1,6 +1,7 @@
 import { ScrollView, Text } from 'react-native';
 import { Card } from 'react-native-elements'
 import React, { Component } from 'react';
+import * as Animatable from 'react-native-animatable';
 import { createDrawerNavigator, createStackNavigator } from 'react-navigation'
 import Home from './HomeComponent';
 import About from './AboutComponent';
@@ -36,6 +37,7 @@ export default class Contact extends Component {
     render() {
         return (
             <ScrollView>
+                 <Animatable.View animation='fadeInDown' duration={2000} delay={1000} >
                 <Card title='Contact Information'
                     wrapperStyle={{ margin: 20 }}>
                     <Text >
@@ -46,7 +48,7 @@ export default class Contact extends Component {
                     <Text> Email: campsites@nucamp.com
                 </Text>
                 </Card>
-
+</Animatable.View>
             </ScrollView>
         )
     }

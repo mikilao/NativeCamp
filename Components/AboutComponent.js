@@ -2,6 +2,7 @@ import { ScrollView, Text, FlatList } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import React, { Component } from 'react';
 import { Card } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { baseUrl } from '../Shared/baseUrl';
 import Loading from './LoadingComponent';
@@ -65,23 +66,25 @@ class About extends Component {
             return (
 
                 <ScrollView>
+                    <Animatable.View animation='fadeInDown' duration={2000} delay={1000} >
                     <Mission />
                     <Card title="Community Partners">
                         <Text>{this.props.partners.errMess}</Text>
                     </Card>
-
+</Animatable.View>
                 </ScrollView>
             )
         }
         return (
             <ScrollView>
+                 <Animatable.View animation='fadeInDown' duration={2000} delay={1000} >
                 <Mission />
                 <Card title="Community Partners">
                     <FlatList data={this.props.partners.partners}
                         keyExtractor={item => item.id.toString()}
                         renderItem={renderPartner} />
                 </Card>
-
+</Animatable.View>
             </ScrollView>
         )
     }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { FlatList, View, Text} from 'react-native';
 import Loading from './LoadingComponent';
 import { Tile } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 import {connect} from 'react-redux';
 import {baseUrl} from '../Shared/baseUrl';
 
@@ -22,6 +23,7 @@ render() {
   
     const renderDirectoryItem = ({item}) => {//will iterate through campsites from the flatlist
         return (
+            <Animatable.View animation='fadeInRightBig' duration={2000} > 
             <Tile
                 title={item.name}
                 caption={item.description}
@@ -30,6 +32,7 @@ render() {
                 imageSrc= {{uri:baseUrl + item.image}}
                 //leftAvatar={{ source: require('./images/react-lake.jpg')}}
             />
+            </Animatable.View>
         );
     };
 

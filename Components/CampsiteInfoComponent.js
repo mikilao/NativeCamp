@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, FlatList, Modal, Button, StyleSheet} from 'react-native';
+import { Text, View, ScrollView, FlatList, Modal, Button, StyleSheet, Alert, PanResponder} from 'react-native';
 import { Card, Icon, Input } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { baseUrl } from '../Shared/baseUrl';
 import { Rating } from 'react-native-elements';
@@ -23,9 +24,40 @@ const mapDispatchToProps = {
 
 function RenderCampsite( props ) {
     const { campsite } = props;
-
+    const recognizeDrag = ({dx}) => (dx <-200) ? true : false; //pt1 of gestures determine direction with neg # = true or false
+    
+    const panRespond = PanResponder.create({//pt 2 of gestures
+        onStartShouldSetPanResponder:()=> true, //activate the pan responder to respond to gestures
+        onPanResponderEnd: (e, gestureState)=>{
+            console.log('pan responder end', gestureState); 
+             if(recognizeDrag(gestureState)){
+                 Alert.alert(
+                     'Add fav',
+                     'Are you sure you wish to add ' + campsite.name),
+                     [
+                         {
+                         text: 'Cancel',
+                         style: 'cancel',
+                         onPress: ()=> console.log("Cancel?")
+                     },
+                     {
+                         text: 'OK',
+                         onPress: () => props.favorite ? console.log('Alreadt set as favorite') :props.markFavorite()
+                     } 
+                     ], {cancelable:false}
+           
+        }      
+return true;
+        }
+    })
     if (campsite) {
         return (
+            <Animatable.View 
+            animation='fadeInDown' 
+            duration={2000} 
+            delay={1000}
+            {...panRespond.panHandlers}//last step to connect the gestures
+             >
             <Card
                 featuredTitle={campsite.name}
                 image={{ uri: baseUrl + campsite.image }}>
@@ -52,6 +84,7 @@ function RenderCampsite( props ) {
                     />
                 </View>
             </Card>
+            </Animatable.View>
         );
     }
     return <View />;// returns an empty view if campsites returns false
@@ -73,6 +106,7 @@ function RenderComments({ comments }) {
         );
     };
     return (
+        <Animatable.View animation='fadeInUp' duration={2000} delay={1000} >
         <Card
             title="Comments">
             <FlatList
@@ -80,6 +114,7 @@ function RenderComments({ comments }) {
                 renderItem={renderCommentItem}
                 keyExtractor={item => item.id.toString()} />
         </Card>
+        </Animatable.View>
     );
 }
 class CampsiteInfo extends Component {
