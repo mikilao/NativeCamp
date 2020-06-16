@@ -6,6 +6,7 @@ import { createDrawerNavigator, createStackNavigator, DrawerItems } from 'react-
 import Home from './HomeComponent';
 import About from './AboutComponent';
 import Reservation from './ReservationComponent';
+import Login from './LoginComponent'
 import Contact from './ContactComponent';
 import Favorites from './FavoritesComponent';
 import SafeAreaView from 'react-native-safe-area-view';
@@ -94,14 +95,11 @@ const ContactNavigator = createStackNavigator(
 );
 const ReservationNavigator = createStackNavigator(
     {
-        Home: { screen: Home },
-        /* Directory: {screen: Directory},
-         About: {screen: About},
-         CampsiteInfo:{screen: CampsiteInfo}*/
+       
         Reservation: { screen: Reservation }
     },
     {//Header
-
+        drawerLabel:"Reservations",
         navigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#5637DD'
@@ -111,7 +109,7 @@ const ReservationNavigator = createStackNavigator(
                 color: '#fff'
             },
             headerLeft: <Icon
-                name='address-card'
+                name='tree'
                 type='font-awesome'
                 iconStyle={StyleSheet.stackIcon}
                 onPress={() => navigation.toggleDrawer()} />
@@ -137,6 +135,28 @@ const AboutNavigator = createStackNavigator(
                 type='font-awesome'
                 iconStyle={StyleSheet.stackIcon}
                 onPress={() => navigation.toggleDrawer()} />
+        })
+    }
+);
+const LoginNavigator = createStackNavigator(
+    {
+        Login: { screen: Login }
+    },
+    {
+        navigationOptions: ({navigation}) => ({
+            headerStyle: {
+                backgroundColor: '#5637DD'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            },
+            headerLeft: <Icon
+                name='sign-in'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
         })
     }
 );
@@ -225,6 +245,19 @@ const MainNavigator = createDrawerNavigator(
                 )
             }
         },
+        Login: {
+            screen: LoginNavigator,
+            navigationOptions: {
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='sign-in'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+        },
         About: {
             screen: AboutNavigator,
             navigationOptions: {
@@ -270,6 +303,7 @@ const MainNavigator = createDrawerNavigator(
     },
 
     {
+        initialRouteName: "Home", //sets main screen
         drawerBackgroundColor: '#CEC8FF',
         contentComponent: CustomDrawerContentComponent //render the new drawer content
     }
