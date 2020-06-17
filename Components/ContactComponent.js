@@ -2,7 +2,7 @@ import { ScrollView, Text } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements'
 import React, { Component } from 'react';
 import * as Animatable from 'react-native-animatable';
-
+import * as MailComposer from 'expo-mail-composer';
 
 
 export default class Contact extends Component {
@@ -28,8 +28,8 @@ export default class Contact extends Component {
                     <Text style={marginBottom = 10}>    Seattle, WA 98001  U.S.A. </Text>
 
                     <Text> Phone: 1-206-555-1234 </Text>
-                    <Text> Email: campsites@nucamp.com
-                </Text>
+                    <Text> Email: campsites@nucamp.com</Text>
+                
                 <Button
                             title="Send Email"
                             buttonStyle={{backgroundColor: '#5637DD', margin: 20}}

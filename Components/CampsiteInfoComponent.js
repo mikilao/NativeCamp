@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, FlatList, Modal, Button, StyleSheet, Alert, PanResponder } from 'react-native';
+import { Text, View, ScrollView, Share, FlatList, Modal, Button, StyleSheet, Alert, PanResponder } from 'react-native';
 import { Card, Icon, Input } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
@@ -58,6 +58,16 @@ function RenderCampsite(props) {
             return true;
         }
     })
+    const shareCampsite = (title, message, url) => {
+        Share.share({
+            title: title,
+            message: `${title}: ${message} ${url}`,//preloaded message to share
+            url: url
+        },{
+            dialogTitle: 'Share ' + title //android only dialog
+        });
+    };
+
     if (campsite) {
         return (
             <Animatable.View
@@ -91,6 +101,15 @@ function RenderCampsite(props) {
                             style={styles.cardItem}
                             onPress={() => props.onShowModal()}
                         />
+                        <Icon
+                        name={'share'}
+                        type='font-awesome'
+                            color='#5637DD'
+                            raised
+                            reverse
+                            style={styles.cardItem}
+                            onPress={() => shareCampsite(campsite.name, campsite.description, baseUrl + campsite.image)}
+                            />
                     </View>
                 </Card>
             </Animatable.View>
