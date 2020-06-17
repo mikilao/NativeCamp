@@ -1,38 +1,21 @@
 import { ScrollView, Text } from 'react-native';
-import { Card } from 'react-native-elements'
+import { Card, Button, Icon } from 'react-native-elements'
 import React, { Component } from 'react';
 import * as Animatable from 'react-native-animatable';
-import { createDrawerNavigator, createStackNavigator } from 'react-navigation'
-import Home from './HomeComponent';
-import About from './AboutComponent';
-import Directory from './DirectoryComponent';
-import CampsiteInfo from './CampsiteInfoComponent';
-
-const ContactNavigator = createStackNavigator(
-    {
-        Home: { screen: Home },
-        Directory: { screen: Directory },
-        About: { screen: About }
 
 
-    },
-    {//Header
-        initialRouteName: 'Directory',
-        navigationOptions: {
-            headerStyle: {
-                backgroundColor: '#563700'
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: '#fff'
-            }
-        }
-    }
-);
+
 export default class Contact extends Component {
 
     static navigationOptions = {// sets the titles during navigation
         title: 'Contact us'
+    }
+    sendMail(){
+        MailComposer.composeAsync({
+            receipients: ['fake@numcapsite.co'],
+            subject: 'Inquiry',
+            body: 'To whom it may concern:'
+        })
     }
     render() {
         return (
@@ -47,6 +30,17 @@ export default class Contact extends Component {
                     <Text> Phone: 1-206-555-1234 </Text>
                     <Text> Email: campsites@nucamp.com
                 </Text>
+                <Button
+                            title="Send Email"
+                            buttonStyle={{backgroundColor: '#5637DD', margin: 20}}
+                            icon={<Icon
+                                name='envelope-o'
+                                type='font-awesome'
+                                color='#fff'
+                                iconStyle={{marginRight: 10}}
+                            />}
+                            onPress={() => this.sendMail()}
+                        />
                 </Card>
 </Animatable.View>
             </ScrollView>
