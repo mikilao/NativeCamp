@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Directory from './DirectoryComponent';
 import CampsiteInfo from './CampsiteInfoComponent';
-import { View, Platform, StyleSheet, Text, ScrollView, Image } from 'react-native';
+import { View, Platform, StyleSheet, Text, ScrollView, Image,  Alert, ToastAndroid  } from 'react-native';
 import { createDrawerNavigator, createStackNavigator, DrawerItems } from 'react-navigation'
 import Home from './HomeComponent';
 import About from './AboutComponent';
@@ -321,6 +321,40 @@ class Main extends Component {
         this.props.fetchPartners();
         this.props.fetchComments();
 
+        NetInfo.fetch().then(state => {
+            NetInfo.fetch().then(connectionInfo => { //could be written with async
+                (Platform.OS === 'ios') ? // chekcing if the user is on IOS
+                    Alert.alert('Initial Network Connectivity Type:', connectionInfo.type) //look for the connection and changes
+                    : ToastAndroid.show('Initial Network Connectivity Type: ' +//displays message that fades away
+                        connectionInfo.type, ToastAndroid.LONG);// sets duratrion of toast message
+            });
+                    })
+                    this.unsubscribeNetInfo =NetInfo.addEventListener(connection =>{
+                        this.handleConnectivityChange(connectionInfo);  
+                    });
+    }
+    componentWillUnmount(){
+        this.unsubscribeNetInfo();// stops the listener when component is unmounted
+    }
+
+    handleConnectivityChange = connectionInfo => {
+        let connectionMsg = 'You are now connected to an active network.';
+        switch (connectionInfo.type) {
+            case 'none':
+                connectionMsg = 'No network connection is active.';
+                break;
+            case 'unknown':
+                connectionMsg = 'The network connection state is now unknown.';
+                break;
+            case 'cellular':
+                connectionMsg = 'You are now connected to a cellular network.';
+                break;
+            case 'wifi':
+                connectionMsg = 'You are now connected to a WiFi network.';
+                break;
+        }
+        (Platform.OS === 'ios') ? Alert.alert('Connection change:', connectionMsg)
+            : ToastAndroid.show(connectionMsg, ToastAndroid.LONG);
     }
     render() {
         return (
