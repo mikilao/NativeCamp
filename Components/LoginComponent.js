@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, Image } from 'react-native';
-import { Input, CheckBox, Button, Icon } from 'react-native-elements';
+import { View, StyleSheet, ScrollView, Image, AsyncStorage } from 'react-native';
+import { Input, CheckBox, Button, Icon, Gallery } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import {ImageManipulator} from 'expo-image-manipulator';
 import { createBottomTabNavigator, TabBarBottom } from 'react-navigation';
 import { baseUrl } from '../Shared/baseUrl';
 
@@ -157,7 +158,34 @@ class RegisterTab extends Component{// bottom tab nav
             });
             if (!capturedImage.cancelled ) {
                 console.log(capturedImage );
-                this.setState({imageUrl: capturedImage.uri});
+               // this.setState({imageUrl: capturedImage.uri});
+               this.processImage(capturedImage.uri)
+            }
+        }
+    }
+    processImage = async(imgUrl) => {
+        const processedImage = await ImageManipulator.manipulateAsync(
+            imgUrl,
+            [{resize:{ width: 400 }}],
+            { format: 'PNG' }
+          );
+          console.log(processedImage);
+          this.setState( {imageUrl: processedImage.uri })
+         
+          const { imageUri}= Camera.takePictureAsync()
+        
+    }
+    getImageFromGallery = async() => {
+        const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
+          const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        if(cameraRollPermission.status ==='granted'){
+            const capturedImage = await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+            apsect: [1 ,1]
+            })
+            if(!capturedImage.cancelled){
+                console.log(capturedImage);
+                this.processImage(capturedImage.uri)
             }
         }
     }
@@ -186,6 +214,9 @@ class RegisterTab extends Component{// bottom tab nav
                             title='Camera'
                             onPress={this.getImageFromCamera}
                         />
+                        <Button 
+                        title='Gallery'
+                        onPress={this.getImageFromGallery}/>
                     </View>
                 <Input
                     placeholder='Username'

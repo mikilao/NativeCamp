@@ -12,6 +12,7 @@ import Favorites from './FavoritesComponent';
 import SafeAreaView from 'react-native-safe-area-view';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import NetInfo from '@react-native-community/netinfo';
 import { fetchCampsites, fetchComments, fetchPromotions, fetchPartners } from '../Redux/ActionCreator'
 
 const mapDispatchToProps = {//redux
@@ -329,12 +330,23 @@ class Main extends Component {
                         connectionInfo.type, ToastAndroid.LONG);// sets duratrion of toast message
             });
                     })
+    
                     this.unsubscribeNetInfo =NetInfo.addEventListener(connection =>{
                         this.handleConnectivityChange(connectionInfo);  
                     });
     }
     componentWillUnmount(){
         this.unsubscribeNetInfo();// stops the listener when component is unmounted
+    }
+    showNetInfo = async ()=> {
+        NetInfo.fetch().then(state => {
+            NetInfo.fetch().then(connectionInfo => { //could be written with async
+                (Platform.OS === 'ios') ? // chekcing if the user is on IOS
+                    Alert.alert('Initial Network Connectivity Type:', connectionInfo.type) //look for the connection and changes
+                    : ToastAndroid.show('Initial Network Connectivity Type: ' +//displays message that fades away
+                        connectionInfo.type, ToastAndroid.LONG);// sets duratrion of toast message
+            });
+                    })
     }
 
     handleConnectivityChange = connectionInfo => {
@@ -344,6 +356,7 @@ class Main extends Component {
                 connectionMsg = 'No network connection is active.';
                 break;
             case 'unknown':
+
                 connectionMsg = 'The network connection state is now unknown.';
                 break;
             case 'cellular':

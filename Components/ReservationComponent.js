@@ -195,25 +195,3 @@ const styles = StyleSheet.create({
 });
 
 export default Reservation;
-/*
-<Modal
-                    animationType={'fade'}
-                    transparent={false} //opaque
-                    visible={this.state.showModal}
-                    onRequestClose={() => this.toggleModal()}// connected to the back button
-                >
-                    <View style={styles.modal}>
-                        <Text style={styles.modalTitle}>Search Campsite Reservations</Text>
-                        <Text style={styles.modalText}>Number of Campers: {this.state.campers}</Text>
-                        <Text style={styles.modalText}>Hike-In?: {this.state.hikeIn ? 'Yes' : 'No'}</Text>
-                        <Text style={styles.modalText}>Date: {this.state.date}</Text>
-                        <Button
-                            onPress={() => {
-                                this.toggleModal();
-                                this.resetForm();
-                            }}
-                            color='#5637DD'
-                            title='Close'
-                        />
-                    </View>
-                </Modal>*/
